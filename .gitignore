@@ -1,0 +1,6 @@
+# Working files, not site code
+docs/
+reference/
+
+# Local Claude Code settings
+.claude/settings.local.json
