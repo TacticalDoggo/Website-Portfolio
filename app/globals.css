@@ -1,21 +1,171 @@
 @import "tailwindcss";
 
 :root {
+  /* surfaces */
   --bg-page: #FAF8F3;
+  --bg-paper: #FFFEFB;
+  --bg-alt: #F1EFE8;
+  --bg-inverse: #2C2C2A;
+
+  /* text */
   --text-primary: #2C2C2A;
+  --text-secondary: #5F5E5A;
+  --text-muted: #888780;
+  --text-inverse: #FAF8F3;
+
+  /* accent */
+  --accent: #C2410C;
+  --accent-tint: #FCE7D9;
+
+  /* status */
+  --success: #15803D;
+  --warning: #B45309;
+  --error: #B91C1C;
+
+  /* borders / rules */
+  --border-hairline: #E5E0D3;
+  --border-rule: #D3D1C7;
+  --border-heavy: #2C2C2A;
 }
 
-@theme {
+@theme inline {
+  /* surfaces */
   --color-bg-page: var(--bg-page);
+  --color-bg-paper: var(--bg-paper);
+  --color-bg-alt: var(--bg-alt);
+  --color-bg-inverse: var(--bg-inverse);
+
+  /* text */
   --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+
+  /* accent */
+  --color-accent: var(--accent);
+  --color-accent-tint: var(--accent-tint);
+
+  /* status */
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+
+  /* borders */
+  --color-border-hairline: var(--border-hairline);
+  --color-border-rule: var(--border-rule);
+  --color-border-heavy: var(--border-heavy);
+
+  /* font families */
   --font-serif: var(--font-serif);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
 }
 
+/*
+ * Breakpoint: 768px (Tailwind v4 md: default). Spec section 1.3 distinguishes
+ * "Desktop" and "Mobile" sizes but does not specify a pixel boundary.
+ * 768px is the standard tablet+ threshold; 1024px would leave laptops
+ * at mobile sizes, which would read undersized at the editorial scale.
+ */
 body {
   background: var(--bg-page);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  font-size: 16px;
   line-height: 1.7;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 36px;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.2;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+small {
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+@media (min-width: 768px) {
+  h1 {
+    font-size: 56px;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+  h3 {
+    font-size: 22px;
+    line-height: 1.25;
+  }
+}
+
+@utility pullquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.4;
+  color: var(--text-primary);
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+    line-height: 1.35;
+  }
+}
+
+@utility mono-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@utility mono-body {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

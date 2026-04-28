@@ -1,7 +1,7 @@
 # Build Tracker
 
 Updated by Claude Code after commits. Manual updates welcome.
-Last updated: 2026-04-28
+Last updated: 2026-04-29
 
 ---
 
@@ -10,7 +10,7 @@ Last updated: 2026-04-28
 | # | Task | Status | Notes |
 |---|------|--------|-------|
 | 1 | Project scaffold | DONE | Next.js 16.2.4 + React 19 + Tailwind v4 + Fraunces/Inter/JetBrains Mono via next/font. Foundational tokens only (bg-page, text-primary). Throwaway placeholder at app/page.tsx (replaced in step 4). |
-| 2 | Design tokens | TODO | CSS variables from SITE_SPEC.md Section 1.2-1.3 |
+| 2 | Design tokens | DONE | Full SITE_SPEC.md sections 1.2 + 1.3 expressed. Raw CSS variables in :root match spec names verbatim; @theme inline mirrors them with category prefixes preserved (utilities like bg-bg-page, text-text-primary, border-border-hairline). Element defaults for h1/h2/h3/body/small with desktop breakpoint at 768px. @utility for pullquote, mono-label, mono-body. Sitewide focus-visible outline (uses --accent) and prefers-reduced-motion baseline added. Placeholder app/page.tsx refactored to consume tokens; no inline styles or arbitrary values remain. |
 | 3 | Masthead and global footer | TODO | Two footer modes: homepage contact + sitewide |
 | 4 | Homepage | TODO | Hero, selected work cards, Now block, contact footer |
 | 5 | Project card component + projects.ts | TODO | Shared data source for homepage + /projects |
