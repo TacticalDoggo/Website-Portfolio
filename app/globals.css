@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  --bg-page: #FAF8F3;
+  --text-primary: #2C2C2A;
+}
+
+@theme {
+  --color-bg-page: var(--bg-page);
+  --color-text-primary: var(--text-primary);
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+}

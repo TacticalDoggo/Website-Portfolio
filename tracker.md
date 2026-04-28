@@ -1,7 +1,7 @@
 # Build Tracker
 
 Updated by Claude Code after commits. Manual updates welcome.
-Last updated: (not started)
+Last updated: 2026-04-28
 
 ---
 
@@ -9,7 +9,7 @@ Last updated: (not started)
 
 | # | Task | Status | Notes |
 |---|------|--------|-------|
-| 1 | Project scaffold | TODO | Next.js App Router + Tailwind + fonts + globals + layout |
+| 1 | Project scaffold | DONE | Next.js 16.2.4 + React 19 + Tailwind v4 + Fraunces/Inter/JetBrains Mono via next/font. Foundational tokens only (bg-page, text-primary). Throwaway placeholder at app/page.tsx (replaced in step 4). |
 | 2 | Design tokens | TODO | CSS variables from SITE_SPEC.md Section 1.2-1.3 |
 | 3 | Masthead and global footer | TODO | Two footer modes: homepage contact + sitewide |
 | 4 | Homepage | TODO | Hero, selected work cards, Now block, contact footer |
@@ -33,7 +33,7 @@ Last updated: (not started)
 
 | Component | Path | Used On |
 |-----------|------|---------|
-| (none yet) | | |
+| RootLayout | app/layout.tsx | All pages (loads fonts, sets html/body shell) |
 
 ## Pages Live
 

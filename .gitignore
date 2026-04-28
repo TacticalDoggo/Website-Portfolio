@@ -4,3 +4,27 @@ reference/
 
 # Local Claude Code settings
 .claude/settings.local.json
+
+# Node / Next.js
+/node_modules
+/.next/
+/out/
+/build
+*.tsbuildinfo
+next-env.d.ts
+
+# Env files
+.env*
+
+# Vercel
+.vercel
+
+# OS
+.DS_Store
+*.pem
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
