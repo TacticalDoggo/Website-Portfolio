@@ -47,7 +47,7 @@ function HeroSection() {
     <section
       id="introduction"
       aria-labelledby="hero-heading"
-      className={`${SHELL} flex flex-col justify-center min-h-[60vh] md:min-h-[80vh] pt-16 md:pt-24 pb-12`}
+      className={`${SHELL} flex flex-col justify-start min-h-[80vh] pt-24 md:pt-32 pb-12`}
     >
       <p className="mono-label text-text-muted mb-6">§ 01 - INTRODUCTION</p>
       <h1 id="hero-heading" className="max-w-[18ch] mb-6">
