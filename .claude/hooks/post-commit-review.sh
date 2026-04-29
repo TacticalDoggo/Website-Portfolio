@@ -10,7 +10,7 @@
 # the tool_input.command is a `git commit`. No jq dependency.
 
 PAYLOAD=$(cat)
-echo "$PAYLOAD" | grep -qE '"command"[[:space:]]*:[[:space:]]*"git commit' || {
+echo "$PAYLOAD" | grep -qE '"command"[[:space:]]*:[[:space:]]*"[^"]*git commit' || {
   echo '{}'
   exit 0
 }
