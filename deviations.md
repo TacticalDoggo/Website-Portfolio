@@ -155,3 +155,25 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Spec said:** Spec § 10.1 writes the figure caption with U+2014 (`FIG. 01 — No image. The work was patient communication under HIPAA; nothing displayable was ours to show.`).
 - **Change:** Caption renders as `FIG. 01 - No image. The work was patient communication under HIPAA; nothing displayable was ours to show.` (U+002D, hyphen-minus).
 - **Reason:** Specific application of the existing site-wide hyphen-minus deviation. CLAUDE.md hard rule and step 17 linter compatibility. Logged separately for the per-page audit trail; the underlying rule does not change. Note: this is the first project page on the site to use the typographic placeholder hero (no `next/image` `alt` attribute applies — the placeholder is a styled `<div role="img">` with an auto-constructed `aria-label`); only the figcaption beneath the placeholder needs the em-dash → hyphen-minus substitution.
+
+### /projects/sofabot Deviations
+
+### Added: JSON-LD shipped in step 11, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/projects/sofabot/page.tsx` ships the `BreadcrumbList` + `CreativeWork` JSON-LD blocks from `docs/pass2-sofabot.md` § 11.6 inline at first publication. Field values copy-pasted verbatim, including `dateCreated: "2019-09"` and the `contributor: { '@type': 'Organization', name: 'UNT Robotics Club' }` shape.
+- **Reason:** Same rationale as the prior four case-study entries (/projects index, NASA, T&S, HackZurich, Nicular). Schemas are fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
+
+### Added: Hero alt text drops the `FIG. 01 - ` figure-label prefix (2026-04-29)
+- **Spec said:** Spec § 11.1 locks the visible figcaption (`FIG. 01 — SofaBot at rest, somewhere on the UNT campus.`) but does not pin the `alt` attribute on the image.
+- **Change:** Image `alt` reuses the descriptive portion verbatim, drops the `FIG. 01 - ` figure label: `'SofaBot at rest, somewhere on the UNT campus.'`. The full caption (with `FIG. 01 - `) renders in the visible `<figcaption>`.
+- **Reason:** Same convention as the NASA / T&S / HackZurich hero alt entries; logged separately for the per-page audit trail. A `<figure>` with a `<figcaption>` already announces "figure" to assistive tech, so duplicating `FIG. 01 - ` inside `alt` produces double-announcement noise.
+
+### Added: SofaBot hero figure caption uses hyphen-minus, not em dash (2026-04-29)
+- **Spec said:** Spec § 11.1 writes the figure caption with U+2014 (`FIG. 01 — SofaBot at rest, somewhere on the UNT campus.`).
+- **Change:** Caption renders as `FIG. 01 - SofaBot at rest, somewhere on the UNT campus.` (U+002D, hyphen-minus).
+- **Reason:** Specific application of the existing site-wide hyphen-minus deviation. CLAUDE.md hard rule and step 17 linter compatibility. Logged separately for the per-page audit trail; the underlying rule does not change.
+
+### Added: ProjectHeader `aspectRatio: '1/1'` override on SofaBot hero (2026-04-29)
+- **Spec said:** SITE_SPEC § 1.5 specifies a 16:10 hero container as the default. Spec § 11.1 lists the SofaBot hero as 16:10. The `aspectRatio` prop on `ProjectHeader` (introduced step 9 for HackZurich) accepts `'16/10' | '4/3' | '1/1'`; default `'16/10'`.
+- **Change:** SofaBot passes `aspectRatio: '1/1'`. Source `public/projects/sofabot/sofabot.png` is 684×657 (PNG IHDR-verified, ~1.041 ratio, near-square). At the spec's 16:10 default with `object-cover`, the source loses ~35% of vertical content (~17.5% off the top, ~17.5% off the bottom of a much-cropped fit) — defeating the photo, since the sofa subject occupies the full vertical range of the source. With `'1/1'`, the crop is ~4% horizontal only, no vertical loss; the sofa is preserved. NASA, T&S, Nicular continue to omit the prop and render `aspect-[16/10]` (verified post-build); HackZurich continues to render `aspect-[1/1]`.
+- **Reason:** Same justification shape as the HackZurich step-9 entry: the source aspect is near-square and the 16:10 default would cut subject content. This is the second use of the `aspectRatio` prop on the site, both at `'1/1'`. The component is unchanged; the existing `ASPECT_CLASS` lookup map already emits `aspect-[1/1]` as a Tailwind literal.
