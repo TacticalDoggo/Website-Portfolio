@@ -21,8 +21,11 @@ import { allProjects } from '../_data/projects';
 const PAGE_DESCRIPTION =
   'Five projects with case studies: CNC software at T&S Machines, HackZurich Migros (1st place), NASA Circadian Lighting, patient messaging at Nicular, SofaBot.';
 
+// Page <title> is bare so the layout's title template (`%s - Alex Bacallao`,
+// app/layout.tsx) appends the site suffix once. Spec calls for
+// "Projects - Alex Bacallao" exactly.
 export const metadata: Metadata = {
-  title: 'Projects - Alex Bacallao',
+  title: 'Projects',
   description: PAGE_DESCRIPTION,
   alternates: {
     canonical: 'https://alexbacallao.com/projects',

@@ -34,8 +34,11 @@ import { RevealOnScroll } from '../../_components/RevealOnScroll';
 const PAGE_DESCRIPTION =
   'A closed-loop lighting controller for spacecraft cabin and plant growth. Senior design, NASA / Texas Space Grant, Spring 2022. Embedded systems case study.';
 
+// Page <title> is bare so the layout's title template (`%s - Alex Bacallao`,
+// app/layout.tsx) appends the site suffix once. Spec calls for
+// "NASA Circadian Lighting - Alex Bacallao" exactly.
 export const metadata: Metadata = {
-  title: 'NASA Circadian Lighting - Alex Bacallao',
+  title: 'NASA Circadian Lighting',
   description: PAGE_DESCRIPTION,
   alternates: {
     canonical: 'https://alexbacallao.com/projects/nasa-circadian-lighting',

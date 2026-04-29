@@ -79,3 +79,35 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Spec said:** `docs/pass2-projects-index.md` § 9.3 specifies real hero images for cards 1, 2, 3, 5 at `/public/projects/[slug]/[file]`.
 - **Change:** `app/_data/projects.ts` now carries an optional `image` field on the `Project` type, populated for cards 1, 2, 3, 5. `ProjectCard` does not yet read this field; cards 1, 2, 3, 5 continue to render the deferred-photo placeholder (bg-bg-alt + numeral) until a later step wires `next/image`.
 - **Reason:** This is forward-prep, not a fallback for a missing image. The rendered placeholder is the **current intended behavior** while the standing pre-launch deliverable for hero photos is open (tracker.md "Move reference images to /public/projects/[slug]/ paths"). Encoding the path now lets the photo-wiring step be a single targeted change (placeholder → `<Image />` branch) rather than a coupled data-and-component change. The `image` field is silent on cards whose hero is permanently a typographic placeholder (Nicular).
+
+### /projects/ts-machines Deviations
+
+### Added: JSON-LD shipped in step 8, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/projects/ts-machines/page.tsx` ships the `BreadcrumbList` + `CreativeWork` JSON-LD blocks from `docs/pass2-ts-machines.md` § 7.8 inline at first publication. Field values are copy-pasted from the spec, verbatim.
+- **Reason:** Same rationale as the /projects index and NASA entries already logged. Schemas are fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
+
+### Added: Hero alt text drops the `FIG. 01 - ` figure-label prefix from the figcaption (2026-04-29)
+- **Spec said:** Spec § 7.1 locks the visible figcaption text (`FIG. 01 - A Blockmaster on the floor running T&S software.`) but does not pin the `alt` attribute on the image.
+- **Change:** The image's `alt` text reuses the descriptive portion of the caption verbatim, but drops the `FIG. 01 - ` figure label: `'A Blockmaster on the floor running T&S software.'`. The full caption (including `FIG. 01 - `) still renders in the visible `<figcaption>` for sighted readers.
+- **Reason:** Same convention as the NASA-page entry above; logged separately for the per-page audit trail. A `<figure>` with a `<figcaption>` already announces "figure" to assistive tech; duplicating `FIG. 01 - ` inside `alt` produces double announcement noise.
+
+### Added: T&S hero figure caption uses hyphen-minus, not em dash (2026-04-29)
+- **Spec said:** Spec § 7.1 writes the figure caption with U+2014 (`FIG. 01 — A Blockmaster...`).
+- **Change:** Caption renders as `FIG. 01 - A Blockmaster on the floor running T&S software.` (U+002D, hyphen-minus).
+- **Reason:** Specific application of the existing site-wide hyphen-minus deviation. CLAUDE.md hard rule and step 17 linter compatibility. Logged separately for the per-page audit trail; the underlying rule does not change.
+
+### Added: Hero photo dimensions, container crop (2026-04-29)
+- **Spec said:** Spec § 7.1 specifies a 16:10 hero container.
+- **Change:** Source `public/projects/ts-machines/machine-in-action.jpg` is 4032×3024 (4:3, ratio 1.333). Container is `aspect-[16/10]` with `object-cover` (inherited from `ProjectHeader.tsx` line 82, no component change). The resulting crop loses ~8.3% of source content off both top and bottom (~16.7% combined vertical crop). NASA's analogous figure was ~6% horizontal crop.
+- **Reason:** Spec compliance favors visual consistency across project hero containers over per-page aspect overrides. Pre-approved by user during the step 8 dev-server browser pass on 2026-04-29; subject (the machine on the production floor) is preserved at the 16:10 crop. Flag for re-confirmation when the step 18 Lighthouse / browser pass runs across all five project pages. If a future page's source aspect can't tolerate 16:10 cleanly, the fallback is to add an optional `aspectRatio` prop to `ProjectHeader` (default `'16/10'`, accepts `'4/3'` or other) - not preempted in this build.
+
+### Added: Title-template double-suffix bug fix on three pre-existing pages (2026-04-29)
+- **Spec said:** Per-page spec titles (e.g. spec § 7.8 "CNC software at T&S Machines - Alex Bacallao") render as a single `<title>` string in the document head. The layout-level title template is implementation-defined; the only spec contract is the rendered output.
+- **Change:** Bundled with this step 8 commit: the rendered `<title>` was doubling `- Alex Bacallao` on every page that set `metadata.title` to the full spec-form (`%s - Alex Bacallao` template at `app/layout.tsx:32` was appending the suffix on top of the already-suffixed page title). Three call sites fixed:
+    - `app/page.tsx` → `title: { absolute: 'Alex Bacallao - Software Developer' }` (opts out of template; spec title already contains the name).
+    - `app/projects/page.tsx` → `title: 'Projects'` (template appends `- Alex Bacallao` once).
+    - `app/projects/nasa-circadian-lighting/page.tsx` → `title: 'NASA Circadian Lighting'` (template appends).
+    - `app/projects/ts-machines/page.tsx` was authored with the bare-title pattern from the start in this same commit, so no edit-from-broken state was needed there.
+  All four rendered `<title>` tags now match their respective specs verbatim. `openGraph.title` was not affected (OG metadata bypasses the title template) and ships as the full string per spec on every page.
+- **Reason:** The bug touched three already-shipped pages. Per the standing "no silent fixes during page review" rule, that ordinarily means a separate cleanup commit. This case is the rule's edge: identical typo-class root cause on every page, identical fix shape, found while building this page (T&S `<title>` doubling was the symptom that surfaced the systemic bug), and one of the four corrections (T&S itself) is squarely inside step 8 anyway. Bundling produces three correctly-titled pages instead of leaving two broken; splitting would have shipped step 8 with a known-broken NASA / homepage / projects-index title for however long the cleanup commit took to land. Logged here under T&S's per-page block because the discovery and the bundling decision are step 8 artifacts; the homepage / projects-index / NASA edits are noted in the change list above for traceability.

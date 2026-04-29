@@ -16,8 +16,13 @@ import { RevealOnScroll } from './_components/RevealOnScroll';
 import { SectionDivider } from './_components/SectionDivider';
 import { homepageProjects } from './_data/projects';
 
+// Page <title> uses `absolute` to opt out of the layout's title template
+// (`%s - Alex Bacallao`, app/layout.tsx). The homepage's spec title is
+// "Alex Bacallao - Software Developer" - already includes the name; the
+// template would otherwise produce "... - Alex Bacallao - Alex Bacallao".
+// Other pages set a bare title and let the template append once.
 export const metadata: Metadata = {
-  title: 'Alex Bacallao - Software Developer',
+  title: { absolute: 'Alex Bacallao - Software Developer' },
   description:
     'Software developer in Ft Worth, Texas. 4 years across embedded systems, healthcare, and industrial automation. Selected work: Docker for CNC, NASA, HackZurich.',
   alternates: {
