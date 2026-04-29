@@ -58,6 +58,23 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Change:** `app/_components/ProjectCard.tsx` `ProjectImagePlaceholder` now accepts an optional `caption` prop. When set, the placeholder switches to `bg-bg-paper` and renders the caption beneath the numeral as a `mono-label`. When not set, the existing bg-bg-alt + numeral-only render is preserved. The `Project` type in `app/_data/projects.ts` exposes this via an optional `placeholderCaption` field. First use site: the Nicular card (`№ 04`) on /projects, with caption `'HIPAA-compliant · No customer data shown'` (natural source casing; mono-label CSS produces the visual ALL-CAPS).
 - **Reason:** The /projects index is the first surface that needs both placeholder modes simultaneously. The homepage's existing placeholder is a deferred-image stand-in; the Nicular card is a permanent typographic placeholder per § 1.10.5. Both must coexist until real photos land for the other cards. A locked precedence matrix (typographic > real image > deferred placeholder) is documented in JSDoc on the data fields and in a comment block above `ProjectImagePlaceholder`.
 
+### /projects/nasa-circadian-lighting Deviations
+
+### Added: JSON-LD shipped in step 7, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15.
+- **Change:** `app/projects/nasa-circadian-lighting/page.tsx` ships the `BreadcrumbList` + `CreativeWork` JSON-LD blocks from `docs/pass2-nasa-circadian-lighting.md` § 3.8 inline at first publication. Field values are copy-pasted from the spec, verbatim.
+- **Reason:** Same rationale as the /projects index deviation entry. The schemas are fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
+
+### Added: Hero alt text drops the `FIG. 01 - ` figure-label prefix from the figcaption (2026-04-29)
+- **Spec said:** Spec § 3.1 locks the visible figcaption text (`FIG. 01 - The demo rig at the Texas Space Grant conference, ...`) but does not pin the `alt` attribute on the image.
+- **Change:** The image's `alt` text reuses the descriptive portion of the caption verbatim, but drops the `FIG. 01 - ` figure label: `'The demo rig at the Texas Space Grant conference, Houston, Spring 2022. Raspberry Pi 4, LUX/RGB sensors, RGB lighting, plant.'`. The full caption (including `FIG. 01 - `) still renders in the visible `<figcaption>` for sighted readers.
+- **Reason:** A `<figure>` with a `<figcaption>` already announces "figure" to assistive tech; duplicating `FIG. 01 - ` inside `alt` produces double announcement noise. Descriptive content is identical between alt and caption; only the label prefix is dropped. Same convention will apply to the other case study pages when their hero photos land.
+
+### Added: NASA hero figure caption uses hyphen-minus, not em dash (2026-04-29)
+- **Spec said:** Spec § 3.1 writes the figure caption with U+2014 (`FIG. 01 — The demo rig...`).
+- **Change:** Caption renders as `FIG. 01 - The demo rig...` (U+002D, hyphen-minus).
+- **Reason:** Specific application of the existing site-wide "Section eyebrows use hyphen-minus, not em dash (2026-04-29)" deviation. The same em-dash → hyphen-minus substitution applies to the figure caption for the same reason: CLAUDE.md hard rule and step 17 linter compatibility. Logged separately for the per-page audit trail; the underlying rule does not change.
+
 ### Added: projects.ts encodes hero `image` paths that ProjectCard does not yet read (2026-04-29)
 - **Spec said:** `docs/pass2-projects-index.md` § 9.3 specifies real hero images for cards 1, 2, 3, 5 at `/public/projects/[slug]/[file]`.
 - **Change:** `app/_data/projects.ts` now carries an optional `image` field on the `Project` type, populated for cards 1, 2, 3, 5. `ProjectCard` does not yet read this field; cards 1, 2, 3, 5 continue to render the deferred-photo placeholder (bg-bg-alt + numeral) until a later step wires `next/image`.
