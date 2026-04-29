@@ -45,3 +45,20 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Change:** [What actually shipped]
 - **Reason:** [Why the change was made]
 -->
+
+### /projects index Deviations
+
+### Added: JSON-LD shipped in step 6, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/projects/page.tsx` ships the `CollectionPage` + `ItemList` JSON-LD block from `docs/pass2-projects-index.md` § 9.5 inline (page-body `<script type="application/ld+json">`, serialized via `JSON.stringify`) at first publication.
+- **Reason:** The schema is fully locked in the page spec and trivially serializable. Deferring just creates a "remember to come back" cost and a future hunt for which pages still need it. Same approach planned for subsequent project pages. The step 15 commit will still own the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
+
+### Added: ProjectCard accepts an optional placeholderCaption for the typographic-placeholder mode (2026-04-29)
+- **Spec said:** SITE_SPEC.md § 1.10.5 defines a typographic placeholder (bg-paper, 0.5px hairline, 88px Fraunces numeral, mono caption) for HIPAA / IP-constrained projects. Until step 6, only the deferred-photo placeholder existed (bg-bg-alt, numeral only).
+- **Change:** `app/_components/ProjectCard.tsx` `ProjectImagePlaceholder` now accepts an optional `caption` prop. When set, the placeholder switches to `bg-bg-paper` and renders the caption beneath the numeral as a `mono-label`. When not set, the existing bg-bg-alt + numeral-only render is preserved. The `Project` type in `app/_data/projects.ts` exposes this via an optional `placeholderCaption` field. First use site: the Nicular card (`№ 04`) on /projects, with caption `'HIPAA-compliant · No customer data shown'` (natural source casing; mono-label CSS produces the visual ALL-CAPS).
+- **Reason:** The /projects index is the first surface that needs both placeholder modes simultaneously. The homepage's existing placeholder is a deferred-image stand-in; the Nicular card is a permanent typographic placeholder per § 1.10.5. Both must coexist until real photos land for the other cards. A locked precedence matrix (typographic > real image > deferred placeholder) is documented in JSDoc on the data fields and in a comment block above `ProjectImagePlaceholder`.
+
+### Added: projects.ts encodes hero `image` paths that ProjectCard does not yet read (2026-04-29)
+- **Spec said:** `docs/pass2-projects-index.md` § 9.3 specifies real hero images for cards 1, 2, 3, 5 at `/public/projects/[slug]/[file]`.
+- **Change:** `app/_data/projects.ts` now carries an optional `image` field on the `Project` type, populated for cards 1, 2, 3, 5. `ProjectCard` does not yet read this field; cards 1, 2, 3, 5 continue to render the deferred-photo placeholder (bg-bg-alt + numeral) until a later step wires `next/image`.
+- **Reason:** This is forward-prep, not a fallback for a missing image. The rendered placeholder is the **current intended behavior** while the standing pre-launch deliverable for hero photos is open (tracker.md "Move reference images to /public/projects/[slug]/ paths"). Encoding the path now lets the photo-wiring step be a single targeted change (placeholder → `<Image />` branch) rather than a coupled data-and-component change. The `image` field is silent on cards whose hero is permanently a typographic placeholder (Nicular).

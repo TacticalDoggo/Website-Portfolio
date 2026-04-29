@@ -1,7 +1,7 @@
 # Build Tracker
 
 Updated by Claude Code after commits. Manual updates welcome.
-Last updated: 2026-04-29 (step 4)
+Last updated: 2026-04-29 (step 6)
 
 ---
 
@@ -14,7 +14,7 @@ Last updated: 2026-04-29 (step 4)
 | 3 | Masthead and global footer | DONE | Pure components, not yet wired into pages (step 4 imports them). Masthead is a Client Component (sticky positioning, scroll-driven hairline border at >=40px, mobile hamburger overlay, active-link via usePathname). Wordmark composes spans (mono-label + serif), never <h1>. Footer is a Server Component with mode prop ('contact' | 'sitewide'); outer footer has id="contact" in BOTH modes per spec lock. Inverted-section overrides #A8A6A0 (mono labels on dark) and #444341 (dividers) are scoped to Footer.tsx with comments. Identity references centralized in app/_data/identity.ts. |
 | 4 | Homepage | DONE | Hero, selected work cards, Now block, contact footer all live at `/`. ProjectCard, RevealOnScroll, SiteFooter components landed alongside. Real photos at `/public/projects/[slug]/` deferred per the standing pre-launch deliverable; cards render typographic placeholders (88px Fraunces numerals on `bg-alt`) per section 1.10.5. SEO `metadata` export covers title, description, canonical, and OG tags; JSON-LD WebSite schema deferred to step 15 per CLAUDE.md build order. |
 | 5 | Project card component + projects.ts | DONE | Landed early as part of step 4 (`app/_components/ProjectCard.tsx` + `app/_data/projects.ts`). Same component will render on /projects index in step 6. Source casing is natural; `mono-label` utility renders the visual ALL-CAPS. |
-| 6 | /projects index | TODO | Card stack, quality-weighted ordering |
+| 6 | /projects index | DONE | Header (eyebrow + H1 + dek) + 5-card stack in locked quality-weighted order at `/projects`. ProjectCard reused verbatim; data restructured so `homepageProjects` is now `allProjects.slice(0, 3)`. Nicular card is the first site-wide use of the § 1.10.5 typographic placeholder (bg-bg-paper + caption); cards 1/2/3/5 keep the deferred-photo placeholder until photo-wiring lands. JSON-LD `CollectionPage` + `ItemList` shipped inline (deviation: pulled forward from step 15). SEO `metadata` covers title, description, canonical, OG. OG image route still deferred to step 16. |
 | 7 | NASA Circadian Lighting | TODO | 6-section case study pattern |
 | 8 | T&S Machines | TODO | 5-section ongoing project pattern, Docker side-project |
 | 9 | HackZurich Migros | TODO | 6-section, hero team photo |
@@ -37,16 +37,17 @@ Last updated: 2026-04-29 (step 4)
 | Masthead | app/_components/Masthead.tsx | All pages (wired in layout, step 4). Inner row constrained to 880px; outer header stays full-viewport-width for sticky bg + scroll hairline. |
 | Footer | app/_components/Footer.tsx | All pages via SiteFooter wrapper. Two render modes; inner wrapper constrained to 880px. |
 | SiteFooter | app/_components/SiteFooter.tsx | All pages. Tiny client wrapper that picks Footer mode by `usePathname()`: contact on `/`, sitewide elsewhere. |
-| ProjectCard | app/_components/ProjectCard.tsx | Homepage now; /projects index (step 6) and any "featured project" affordances later. |
+| ProjectCard | app/_components/ProjectCard.tsx | Homepage and /projects index. Step 6 added an optional `caption` mode on the inner `ProjectImagePlaceholder` so the same component handles both deferred-photo placeholders and § 1.10.5 typographic placeholders. |
 | RevealOnScroll | app/_components/RevealOnScroll.tsx | Homepage selected work cards + Now block. Reusable on any page that wants scroll-fade per section 2.7. |
 | identity (data) | app/_data/identity.ts | All pages, JSON-LD, llms.txt (when those steps land) |
-| projects (data) | app/_data/projects.ts | Homepage selected work; /projects index in step 6 will render from the same source. |
+| projects (data) | app/_data/projects.ts | Homepage selected work and /projects index. Now exports `allProjects` (5 entries, locked quality-weighted order) plus `homepageProjects = allProjects.slice(0, 3)`. Optional `image` and `placeholderCaption` fields select the card's hero render mode. |
 
 ## Pages Live
 
 | Page | Route | Lighthouse Mobile | Last Tested |
 |------|-------|-------------------|-------------|
 | Homepage | / | (pending step 18) | 2026-04-29 (manual scroll, dev server) |
+| Projects index | /projects | (pending step 18) | 2026-04-29 (manual scroll, dev server) |
 
 ## Pending Items (Not in Build Order)
 

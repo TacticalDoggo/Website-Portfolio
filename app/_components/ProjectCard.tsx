@@ -9,30 +9,61 @@
 //   - project numeral translates 2px right
 //   - both 200ms ease-out
 //   - no box-shadow, no scale, no background change
-//
-// Image: typographic placeholder (88px Fraunces project numeral on bg-alt
-// with a hairline outline, 16:10 aspect) per section 1.10.5. Real photos
-// land in a later build step.
 
 import Link from 'next/link';
 import type { Project } from '../_data/projects';
 
-function ProjectImagePlaceholder({ number }: { number: string }) {
+// Hero render selection (locked matrix; mirrors JSDoc on Project.image
+// and Project.placeholderCaption in app/_data/projects.ts):
+//
+//   placeholderCaption present     -> typographic placeholder
+//                                     bg-bg-paper, numeral + caption (1.10.5)
+//   image present, no caption      -> real <Image /> (FUTURE STATE,
+//                                     not yet wired this step)
+//   neither present                -> deferred-photo placeholder
+//                                     bg-bg-alt, numeral only
+//
+// placeholderCaption wins over image if both are set: explicit
+// "this project will never show real photos" intent overrides a
+// would-be photo path.
+function ProjectImagePlaceholder({
+  number,
+  caption,
+}: {
+  number: string;
+  caption?: string;
+}) {
   // Non-breaking space between glyph and digits matches the design handoff
   // so the numeral never wraps inside the placeholder.
-  const display = number.replace(' ', ' ');
+  const display = number.replace(' ', ' ');
+  const isTypographic = Boolean(caption);
+  const containerBg = isTypographic ? 'bg-bg-paper' : 'bg-bg-alt';
+  const ariaLabel = caption
+    ? `${number} placeholder, ${caption}`
+    : `${number} placeholder`;
+
   return (
     <div
       role="img"
-      aria-label={`${number} placeholder`}
-      className="relative w-full aspect-[16/10] bg-bg-alt border-[0.5px] border-border-hairline rounded grid place-items-center mb-5 overflow-hidden"
+      aria-label={ariaLabel}
+      className={`relative w-full aspect-[16/10] ${containerBg} border-[0.5px] border-border-hairline rounded grid place-items-center mb-5 overflow-hidden`}
     >
-      <span
-        aria-hidden="true"
-        className="font-serif font-medium text-[64px] md:text-[88px] leading-none tracking-[-0.02em] text-text-secondary"
-      >
-        {display}
-      </span>
+      <div className="flex flex-col items-center gap-3">
+        <span
+          aria-hidden="true"
+          className="font-serif font-medium text-[64px] md:text-[88px] leading-none tracking-[-0.02em] text-text-secondary"
+        >
+          {display}
+        </span>
+        {caption ? (
+          <span
+            aria-hidden="true"
+            className="mono-label text-text-muted tracking-[0.1em]"
+          >
+            {caption}
+          </span>
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -52,7 +83,10 @@ export function ProjectCard({ project }: { project: Project }) {
         </span>
       </div>
 
-      <ProjectImagePlaceholder number={project.number} />
+      <ProjectImagePlaceholder
+        number={project.number}
+        caption={project.placeholderCaption}
+      />
 
       <h3 className="mb-2">{project.title}</h3>
 
