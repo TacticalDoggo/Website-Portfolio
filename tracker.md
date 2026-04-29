@@ -56,6 +56,7 @@ Last updated: 2026-04-29 (step 4)
 - [ ] GitHub presentability before launch
 - [ ] Pre-launch real photo check (T&S, NASA, HackZurich, SofaBot confirmed; Nicular uses placeholder)
 - [ ] Skip-to-content link in masthead (a11y polish, not in spec but worth tracking)
+- [ ] RevealOnScroll: elements already in viewport at mount sometimes don't fire the fade-in. Reproduces by loading the page with cards above-the-fold-ish; refresh fixes it. Likely fix: check element position on mount and reveal immediately if already intersecting. Not a launch blocker, but flag for a polish pass.
 
 ## Review Findings
 
