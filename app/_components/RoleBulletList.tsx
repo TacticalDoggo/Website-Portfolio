@@ -11,15 +11,22 @@
 // section); when ledeHref is set, the lede renders as a Next.js <Link>
 // in accent color.
 //
+// Step 13: description widened from string to React.ReactNode so the
+// resume's HackZurich projects bullet can carry inline bold-italic on
+// '1st place, Migros challenge.' per pass2-resume.md section 6.8.
+// Backwards-compatible with all 4 prior callers (NASA, T&S, HackZurich,
+// Nicular My Role bullets) which pass plain strings; not a deviation.
+//
 // Used standalone; the closing-scope paragraph and any "Specifically:"
 // transition line live at the call site, not in this component.
 
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 export type RoleBulletItem = {
   lede: string;
   ledeHref?: string;
-  description: string;
+  description: ReactNode;
 };
 
 export function RoleBulletList({ items }: { items: RoleBulletItem[] }) {
