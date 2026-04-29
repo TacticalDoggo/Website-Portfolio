@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Masthead } from './_components/Masthead';
+import { PersonJsonLd } from './_components/PersonJsonLd';
 import { SiteFooter } from './_components/SiteFooter';
 
 const fraunces = Fraunces({
@@ -46,6 +47,7 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <PersonJsonLd />
         <Masthead />
         <main>{children}</main>
         <SiteFooter />

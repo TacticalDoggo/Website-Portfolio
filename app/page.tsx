@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { ProjectCard } from './_components/ProjectCard';
 import { RevealOnScroll } from './_components/RevealOnScroll';
 import { SectionDivider } from './_components/SectionDivider';
+import { WebSiteJsonLd } from './_components/WebSiteJsonLd';
 import { homepageProjects } from './_data/projects';
 
 // Page <title> uses `absolute` to opt out of the layout's title template
@@ -158,6 +159,7 @@ export default function HomePage() {
       <SectionDivider />
       <NowSection />
       <SectionDivider />
+      <WebSiteJsonLd />
     </>
   );
 }

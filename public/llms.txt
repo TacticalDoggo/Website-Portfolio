@@ -1,0 +1,26 @@
+# Alex Bacallao
+> Software developer. 4 years across embedded systems,
+> healthcare, and industrial automation. Based in Ft Worth, Texas.
+> Currently a Digital Specialist at T&S Machines; passively open
+> to backend, infra, and Docker-heavy roles.
+
+## Quick facts
+- Trilingual: English, Spanish, German
+- B.S. Computer Engineering, University of North Texas, 2023
+- Languages: C, C++, Python, JavaScript, TypeScript, Java
+- Recent: 4 years of CNC software at T&S Machines; Docker side project
+- Notable: NASA-sponsored spacecraft lighting controller (Texas Space Grant)
+- Award: 1st place, Migros challenge, HackZurich 2022
+
+## Site map
+- /                    Homepage and brief intro
+- /projects            List of selected work
+- /projects/[slug]     Per-project case studies
+- /about               Background, languages, what I'm looking for
+- /resume              Full work history
+- /contact             How to reach me
+
+## Contact
+- Email: alex.bacallao1996@gmail.com
+- LinkedIn: linkedin.com/in/alejandrobacallao
+- GitHub: github.com/TacticalDoggo
