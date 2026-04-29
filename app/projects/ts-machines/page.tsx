@@ -39,9 +39,16 @@ import { RoleBulletList } from '../../_components/RoleBulletList';
 import { ProjectPageFooter } from '../../_components/ProjectPageFooter';
 import { SectionDivider } from '../../_components/SectionDivider';
 import { RevealOnScroll } from '../../_components/RevealOnScroll';
+import { buildOgUrl } from '../../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   "Four years writing the software that runs T&S Machines' Blockmaster CNC: probing routines, refactoring, screen merges against Mach4, plus a Docker side-project.";
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'CNC software at T&S Machines',
+  subtitle: 'Four years of writing the software that runs the Blockmaster.',
+  meta: 'INDUSTRIAL · SOFTWARE · SINCE 2019',
+});
 
 // Page <title> uses the bare title so the layout's title template
 // (`%s - Alex Bacallao`, app/layout.tsx) appends the site suffix once.
@@ -59,6 +66,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects/ts-machines',
     type: 'article',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - CNC software at T&S Machines',
+      },
+    ],
   },
 };
 

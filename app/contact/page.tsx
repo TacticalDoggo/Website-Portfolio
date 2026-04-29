@@ -44,9 +44,15 @@ import { identity } from '../_data/identity';
 import { MonoTable } from '../_components/MonoTable';
 import { RoleBulletList, type RoleBulletItem } from '../_components/RoleBulletList';
 import { SectionDivider } from '../_components/SectionDivider';
+import { buildOgUrl } from '../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   'Get in touch with Alex Bacallao, software developer in Ft Worth, Texas. Email is the fastest way. LinkedIn, GitHub, and resume PDF also linked.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Get in touch',
+  meta: 'SOFTWARE DEVELOPER · FT WORTH, TX',
+});
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -59,6 +65,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/contact',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Get in touch',
+      },
+    ],
   },
 };
 

@@ -15,7 +15,13 @@ import { ProjectCard } from './_components/ProjectCard';
 import { RevealOnScroll } from './_components/RevealOnScroll';
 import { SectionDivider } from './_components/SectionDivider';
 import { WebSiteJsonLd } from './_components/WebSiteJsonLd';
+import { buildOgUrl } from './_data/ogImage';
 import { homepageProjects } from './_data/projects';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Software for systems where reliability matters.',
+  meta: 'SOFTWARE DEVELOPER · FT WORTH, TX',
+});
 
 // Page <title> uses `absolute` to opt out of the layout's title template
 // (`%s - Alex Bacallao`, app/layout.tsx). The homepage's spec title is
@@ -35,6 +41,14 @@ export const metadata: Metadata = {
       'Software developer in Ft Worth, Texas. 4 years across embedded systems, healthcare, and industrial automation. Selected work: Docker for CNC, NASA, HackZurich.',
     url: 'https://alexbacallao.com/',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Software for systems where reliability matters.',
+      },
+    ],
   },
 };
 

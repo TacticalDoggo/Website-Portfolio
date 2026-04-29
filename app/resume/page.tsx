@@ -37,10 +37,16 @@ import { RevealOnScroll } from '../_components/RevealOnScroll';
 import { RoleBulletList, type RoleBulletItem } from '../_components/RoleBulletList';
 import { SectionDivider } from '../_components/SectionDivider';
 import { MonoTable } from '../_components/MonoTable';
+import { buildOgUrl } from '../_data/ogImage';
 import { RoleEntry } from './_components/RoleEntry';
 
 const PAGE_DESCRIPTION =
   'Software developer in Ft Worth, Texas. 4 years across embedded systems, healthcare, and industrial automation. Currently Digital Specialist at T&S Machines.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Resume',
+  meta: 'SOFTWARE DEVELOPER · FT WORTH, TX',
+});
 
 export const metadata: Metadata = {
   title: 'Resume',
@@ -53,6 +59,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/resume',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Resume',
+      },
+    ],
   },
 };
 

@@ -16,10 +16,16 @@ import type { Metadata } from 'next';
 import { ProjectCard } from '../_components/ProjectCard';
 import { RevealOnScroll } from '../_components/RevealOnScroll';
 import { SectionDivider } from '../_components/SectionDivider';
+import { buildOgUrl } from '../_data/ogImage';
 import { allProjects } from '../_data/projects';
 
 const PAGE_DESCRIPTION =
   'Five projects with case studies: CNC software at T&S Machines, HackZurich Migros (1st place), NASA Circadian Lighting, patient messaging at Nicular, SofaBot.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Projects',
+  meta: 'SOFTWARE DEVELOPER · FT WORTH, TX',
+});
 
 // Page <title> is bare so the layout's title template (`%s - Alex Bacallao`,
 // app/layout.tsx) appends the site suffix once. Spec calls for
@@ -35,6 +41,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Projects',
+      },
+    ],
   },
 };
 

@@ -30,9 +30,16 @@ import { RoleBulletList } from '../../_components/RoleBulletList';
 import { ProjectPageFooter } from '../../_components/ProjectPageFooter';
 import { SectionDivider } from '../../_components/SectionDivider';
 import { RevealOnScroll } from '../../_components/RevealOnScroll';
+import { buildOgUrl } from '../../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   'A closed-loop lighting controller for spacecraft cabin and plant growth. Senior design, NASA / Texas Space Grant, Spring 2022. Embedded systems case study.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'NASA Circadian Lighting',
+  subtitle: 'A closed-loop controller for spacecraft cabin and plant-growth lighting.',
+  meta: 'EMBEDDED · SENIOR DESIGN · SPRING 2022',
+});
 
 // Page <title> is bare so the layout's title template (`%s - Alex Bacallao`,
 // app/layout.tsx) appends the site suffix once. Spec calls for
@@ -48,6 +55,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects/nasa-circadian-lighting',
     type: 'article',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - NASA Circadian Lighting',
+      },
+    ],
   },
 };
 

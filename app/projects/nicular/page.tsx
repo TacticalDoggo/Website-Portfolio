@@ -56,9 +56,17 @@ import { RoleBulletList } from '../../_components/RoleBulletList';
 import { ProjectPageFooter } from '../../_components/ProjectPageFooter';
 import { SectionDivider } from '../../_components/SectionDivider';
 import { RevealOnScroll } from '../../_components/RevealOnScroll';
+import { buildOgUrl } from '../../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   'Two-month role at a healthcare startup building HIPAA-compliant SMS and email reminders for clinician workflows. Vonage, GSuite, per-client SQL schemas. Late 2022.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Patient messaging at Nicular',
+  subtitle:
+    'A two-month full-time role building HIPAA-compliant SMS and email reminders for clinician workflows.',
+  meta: 'HEALTHCARE · FULL-TIME · LATE 2022',
+});
 
 export const metadata: Metadata = {
   title: 'Patient messaging at Nicular',
@@ -71,6 +79,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects/nicular',
     type: 'article',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Patient messaging at Nicular',
+      },
+    ],
   },
 };
 

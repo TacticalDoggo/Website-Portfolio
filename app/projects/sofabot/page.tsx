@@ -65,9 +65,17 @@ import { ProjectHeader } from '../../_components/ProjectHeader';
 import { ProjectPageFooter } from '../../_components/ProjectPageFooter';
 import { SectionDivider } from '../../_components/SectionDivider';
 import { RevealOnScroll } from '../../_components/RevealOnScroll';
+import { buildOgUrl } from '../../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   'A driveable sofa from a free couch and a stripped-for-parts go-kart. UNT Robotics Club, since 2019. Gas-to-electric conversion, two car batteries, Raspberry Pi.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'SofaBot',
+  subtitle:
+    'A driveable sofa, built from a free couch and a stripped-for-parts go-kart.',
+  meta: 'ROBOTICS · CLUB · SINCE 2019',
+});
 
 export const metadata: Metadata = {
   title: 'SofaBot',
@@ -80,6 +88,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects/sofabot',
     type: 'article',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - SofaBot',
+      },
+    ],
   },
 };
 

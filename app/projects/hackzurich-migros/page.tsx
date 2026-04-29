@@ -57,9 +57,16 @@ import { RoleBulletList } from '../../_components/RoleBulletList';
 import { ProjectPageFooter } from '../../_components/ProjectPageFooter';
 import { SectionDivider } from '../../_components/SectionDivider';
 import { RevealOnScroll } from '../../_components/RevealOnScroll';
+import { buildOgUrl } from '../../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   '36-hour Migros challenge winner at HackZurich 2022. A web tool for route recommendations when shipping is disrupted. React, Python, Jupyter. Team of 5.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'Supply chain rerouting at HackZurich',
+  subtitle: 'A 36-hour win for the Migros supply-chain challenge.',
+  meta: 'WEB · HACKATHON · 2022',
+});
 
 export const metadata: Metadata = {
   title: 'Supply chain rerouting at HackZurich',
@@ -72,6 +79,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/projects/hackzurich-migros',
     type: 'article',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - Supply chain rerouting at HackZurich',
+      },
+    ],
   },
 };
 

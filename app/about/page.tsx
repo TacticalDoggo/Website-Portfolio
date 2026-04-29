@@ -32,9 +32,15 @@
 import type { Metadata } from 'next';
 import { RevealOnScroll } from '../_components/RevealOnScroll';
 import { SectionDivider } from '../_components/SectionDivider';
+import { buildOgUrl } from '../_data/ogImage';
 
 const PAGE_DESCRIPTION =
   'Software developer in Ft Worth, TX. UNT Computer Engineering 2023. Native Spanish and English, plus German A2/B1. Looking for backend, infra, or related work.';
+
+const OG_IMAGE_URL = buildOgUrl({
+  title: 'About',
+  meta: 'SOFTWARE DEVELOPER · FT WORTH, TX',
+});
 
 export const metadata: Metadata = {
   title: 'About',
@@ -47,6 +53,14 @@ export const metadata: Metadata = {
     description: PAGE_DESCRIPTION,
     url: 'https://alexbacallao.com/about',
     type: 'website',
+    images: [
+      {
+        url: OG_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: 'Alex Bacallao - About',
+      },
+    ],
   },
 };
 

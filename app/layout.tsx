@@ -28,11 +28,20 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  // Resolves relative URLs in per-page metadata (openGraph.images,
+  // alternates.canonical, etc.) to absolute URLs for crawlers.
+  metadataBase: new URL('https://alexbacallao.com'),
   title: {
     default: 'Alex Bacallao - Software Developer',
     template: '%s - Alex Bacallao',
   },
   description: 'Software developer in Ft Worth, Texas.',
+  // Sitewide twitter card type. Per-page openGraph.images entries are picked
+  // up by Twitter as the unfurl image because Next.js merges this layout-level
+  // metadata with each page's metadata export. No per-page twitter blocks.
+  twitter: {
+    card: 'summary_large_image',
+  },
 };
 
 export default function RootLayout({
