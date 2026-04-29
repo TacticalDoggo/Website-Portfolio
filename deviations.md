@@ -31,6 +31,18 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Change:** `app/layout.tsx` wraps `{children}` in a `<main>` element. Pages MUST NOT render their own `<main>`; page bodies use a top-level fragment. Homepage at `app/page.tsx` follows this convention.
 - **Reason:** Exactly one `<main>` per document is the WAI-ARIA expectation. Putting it in the layout removes a per-page boilerplate and a per-page failure mode (forgetting `<main>`, or double-wrapping). All future pages inherit this rule.
 
+### SITE_SPEC § 1.11 cross-page sync constraint, throughline phrase (2026-04-29)
+- **SITE_SPEC said:** § 1.11 (Cross-Page Sync Constraints) claims About and Resume "both reference the same throughline phrase: shipping software to non-developers who need it to just work."
+- **What's true:** The phrase appears verbatim on Resume only (locked in pass2-resume.md § 6.3, attributed to Alex verbatim, "Don't reword without explicit re-authorization"). About uses different prose ("systems where reliability matters and where the work has tangible consequences" in § 5.5) that expresses the same throughline IDEA in narrative voice.
+- **Resolution:** Both Pass 2 docs are locked. The verbatim-phrase claim in SITE_SPEC § 1.11 is incorrect; the pages share a narrative throughline (audiences where reliability matters), not a verbatim phrase. Both pages ship as locked. SITE_SPEC § 1.11 should be amended in a future consolidation pass to read "share the same throughline idea" rather than "share the same throughline phrase."
+- **Reason:** Locked content overrides locked process documentation when they conflict. About's § 5.5 line is narrative prose that can't be replaced with the Resume phrase without weakening the writing; Resume's phrase is locked verbatim from Alex and can't be reworded. The two genres benefit from different phrasings.
+
+### SITE_SPEC § 1.6 voice rule 5 wink count for About page (2026-04-29)
+- **SITE_SPEC said:** § 1.6 voice rule 5 lists About as a two-wink genre ("Two-wink genre: long-form personal pages (homepage, About) and hobbyist case studies (SofaBot)").
+- **What's true:** The locked pass2-about.md § 5.9 specifies one protected wink ("Enough to hold a real conversation, but not enough to write code reviews" in § 5.4 paragraph 1) and explicitly identifies it as "the page's only protected wink."
+- **Resolution:** Both Pass 2 docs are locked. The pass2-about.md spec is authoritative for content; ship one wink as locked. SITE_SPEC § 1.6 voice rule 5 should be amended in a future consolidation pass to align About to a one-wink count, OR pass2-about.md should be amended (with explicit user re-authorization) to add a second wink. Not preempted in this build.
+- **Reason:** Locked content overrides locked process documentation when they conflict. About's wink-economy was tuned during the lock cycle; adding a second wink without an editorial reason would dilute the existing one. The locked one wink is doing its job.
+
 ---
 
 ## Per-Page Deviations
@@ -177,3 +189,10 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Spec said:** SITE_SPEC § 1.5 specifies a 16:10 hero container as the default. Spec § 11.1 lists the SofaBot hero as 16:10. The `aspectRatio` prop on `ProjectHeader` (introduced step 9 for HackZurich) accepts `'16/10' | '4/3' | '1/1'`; default `'16/10'`.
 - **Change:** SofaBot passes `aspectRatio: '1/1'`. Source `public/projects/sofabot/sofabot.png` is 684×657 (PNG IHDR-verified, ~1.041 ratio, near-square). At the spec's 16:10 default with `object-cover`, the source loses ~35% of vertical content (~17.5% off the top, ~17.5% off the bottom of a much-cropped fit) — defeating the photo, since the sofa subject occupies the full vertical range of the source. With `'1/1'`, the crop is ~4% horizontal only, no vertical loss; the sofa is preserved. NASA, T&S, Nicular continue to omit the prop and render `aspect-[16/10]` (verified post-build); HackZurich continues to render `aspect-[1/1]`.
 - **Reason:** Same justification shape as the HackZurich step-9 entry: the source aspect is near-square and the 16:10 default would cut subject content. This is the second use of the `aspectRatio` prop on the site, both at `'1/1'`. The component is unchanged; the existing `ASPECT_CLASS` lookup map already emits `aspect-[1/1]` as a Tailwind literal.
+
+### /about Deviations
+
+### Added: JSON-LD shipped in step 12, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/about/page.tsx` ships the `AboutPage` JSON-LD block from `docs/pass2-about.md` § 5.7 inline at first publication. Field values copy-pasted verbatim. Email is intentionally omitted per spec § 5.7 note (privacy: only the contact page's JSON-LD exposes email).
+- **Reason:** Same rationale as the /projects index, NASA, T&S, HackZurich, Nicular, and SofaBot entries already logged. Schema is fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
