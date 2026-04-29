@@ -197,6 +197,13 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Change:** `app/about/page.tsx` ships the `AboutPage` JSON-LD block from `docs/pass2-about.md` § 5.7 inline at first publication. Field values copy-pasted verbatim. Email is intentionally omitted per spec § 5.7 note (privacy: only the contact page's JSON-LD exposes email).
 - **Reason:** Same rationale as the /projects index, NASA, T&S, HackZurich, Nicular, and SofaBot entries already logged. Schema is fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
 
+### /contact Deviations
+
+### Added: JSON-LD shipped in step 14, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/contact/page.tsx` ships the `ContactPage` JSON-LD block from `docs/pass2-contact.md` § 4.7 inline at first publication. Field values copy-pasted verbatim, including `mainEntity.email: "alex.bacallao1996@gmail.com"` and `mainEntity.sameAs: ["https://linkedin.com/in/alejandrobacallao", "https://github.com/TacticalDoggo"]`. **This is the only page on the site whose JSON-LD includes the `email` field** (sitewide privacy pattern: every other page omits email from structured data; locked exception per spec § 4.7 note "the contact page is a different context, its entire purpose is to expose the email"). `telephone` is intentionally absent (PDF-only sitewide policy from step 13). The `mainEntity` Person carries `email` and `sameAs` only; no `contactPoint`, no `homeLocation`, no `jobTitle`, no `knowsLanguage` - the contact page's JSON-LD is intentionally minimal versus the resume page's `ProfilePage` or the about page's `AboutPage` Person mainEntity (which carry richer biographical fields). Hardcoded verbatim per the spec lock; values mirror `app/_data/identity.ts` and a code comment in the page module names that mirroring.
+- **Reason:** Same rationale as the eight prior entries (/projects index, NASA, T&S, HackZurich, Nicular, SofaBot, About, Resume). Schema is fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped (none expected - every page that ships in steps 4-14 has shipped its JSON-LD inline at first publication).
+
 ### /resume Deviations
 
 ### Added: JSON-LD shipped in step 13, not step 15 (2026-04-29)

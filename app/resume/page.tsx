@@ -36,7 +36,7 @@ import Link from 'next/link';
 import { RevealOnScroll } from '../_components/RevealOnScroll';
 import { RoleBulletList, type RoleBulletItem } from '../_components/RoleBulletList';
 import { SectionDivider } from '../_components/SectionDivider';
-import { MonoTable } from './_components/MonoTable';
+import { MonoTable } from '../_components/MonoTable';
 import { RoleEntry } from './_components/RoleEntry';
 
 const PAGE_DESCRIPTION =
