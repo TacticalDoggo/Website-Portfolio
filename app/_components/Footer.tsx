@@ -103,7 +103,7 @@ export function Footer({ mode = 'sitewide' }: { mode?: FooterMode }) {
       role="contentinfo"
       className="bg-bg-inverse text-text-inverse px-5 py-15 md:px-8 md:py-20"
     >
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[880px] mx-auto">
         {mode === 'contact' && <ContactSection />}
         <Divider />
         <ElsewhereRow />

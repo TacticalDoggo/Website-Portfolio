@@ -46,7 +46,7 @@ export function Masthead() {
 
   return (
     <header role="banner" className={headerClass}>
-      <div className="flex items-center justify-between">
+      <div className="max-w-[880px] mx-auto flex items-center justify-between">
         <Link
           href="/"
           aria-label={`${identity.name}, home`}

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Fraunces, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import { Masthead } from './_components/Masthead';
+import { SiteFooter } from './_components/SiteFooter';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -43,7 +45,11 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Masthead />
+        <main>{children}</main>
+        <SiteFooter />
+      </body>
     </html>
   );
 }
