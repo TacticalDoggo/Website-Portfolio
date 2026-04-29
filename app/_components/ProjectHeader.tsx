@@ -109,7 +109,7 @@ export function ProjectHeader({
             <div className="flex flex-col items-center gap-3">
               <span
                 aria-hidden="true"
-                className="font-serif font-medium text-[64px] md:text-[88px] leading-none tracking-[-0.02em] text-text-secondary"
+                className="font-serif font-medium text-[64px] md:text-[88px] leading-none tracking-[-0.02em] text-text-primary"
               >
                 {hero.numeral}
               </span>

@@ -143,3 +143,15 @@ This file tracks all changes made during the build process that deviate from SIT
 - **Spec said:** Spec § 8.3 defines an inline figure between paragraphs 1 and 2 of the Approach section (FIG. 02, 16:10 container, 0.5px hairline outline, mono-label figcaption, 32px top/bottom margins).
 - **Change:** Inline figure markup is inlined at the call site as a `<figure>` + `<Image>` + `<figcaption>` block matching `ProjectHeader`'s hero figure shape (same `sizes`, same hairline, same className shape, same figcaption styling) minus the `priority` flag (lazy-loads since not above-the-fold) and with intentional differences for aspect ratio (16:10, native to the source) and wrapper margin (`my-8` = 32px top/bottom per spec, vs the hero's `mt-12`).
 - **Reason:** This is the only inline figure specced across all five case studies (NASA, T&S, HackZurich, Nicular, SofaBot). Per the abstraction-threshold rule (saved to memory during step 9), one occurrence does not justify extracting a shared component — inline until the second caller arrives. If a future page adds an inline figure, extract then.
+
+### /projects/nicular Deviations
+
+### Added: JSON-LD shipped in step 10, not step 15 (2026-04-29)
+- **Spec said:** CLAUDE.md build order assigns JSON-LD to step 15 ("SEO files: llms.txt, robots.txt, sitemap, JSON-LD per page").
+- **Change:** `app/projects/nicular/page.tsx` ships the `BreadcrumbList` + `CreativeWork` JSON-LD blocks from `docs/pass2-nicular.md` § 10.8 inline at first publication. Field values copy-pasted verbatim, including `dateCreated: "2022-11"` (the eyebrow text reads "Late 2022" but the JSON-LD uses the spec's literal value).
+- **Reason:** Same rationale as the /projects index, NASA, T&S, and HackZurich entries already logged. Schemas are fully locked in the page spec and trivially serializable; deferring just creates a "remember to come back" cost. Step 15 still owns the cross-cutting SEO files (llms.txt, robots.txt, sitemap) and any JSON-LD that hasn't already shipped.
+
+### Added: Nicular hero figure caption uses hyphen-minus, not em dash (2026-04-29)
+- **Spec said:** Spec § 10.1 writes the figure caption with U+2014 (`FIG. 01 — No image. The work was patient communication under HIPAA; nothing displayable was ours to show.`).
+- **Change:** Caption renders as `FIG. 01 - No image. The work was patient communication under HIPAA; nothing displayable was ours to show.` (U+002D, hyphen-minus).
+- **Reason:** Specific application of the existing site-wide hyphen-minus deviation. CLAUDE.md hard rule and step 17 linter compatibility. Logged separately for the per-page audit trail; the underlying rule does not change. Note: this is the first project page on the site to use the typographic placeholder hero (no `next/image` `alt` attribute applies — the placeholder is a styled `<div role="img">` with an auto-constructed `aria-label`); only the figcaption beneath the placeholder needs the em-dash → hyphen-minus substitution.
