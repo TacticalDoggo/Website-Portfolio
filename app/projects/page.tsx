@@ -15,6 +15,7 @@
 import type { Metadata } from 'next';
 import { ProjectCard } from '../_components/ProjectCard';
 import { RevealOnScroll } from '../_components/RevealOnScroll';
+import { SectionDivider } from '../_components/SectionDivider';
 import { allProjects } from '../_data/projects';
 
 const PAGE_DESCRIPTION =
@@ -35,15 +36,6 @@ export const metadata: Metadata = {
 };
 
 const SHELL = 'max-w-[880px] mx-auto px-5 md:px-8';
-const DIVIDER = 'h-px bg-border-rule my-15 md:my-20';
-
-function SectionDivider() {
-  return (
-    <div className={SHELL}>
-      <div role="separator" aria-hidden="true" className={DIVIDER} />
-    </div>
-  );
-}
 
 const collectionPageJsonLd = {
   '@context': 'https://schema.org',
